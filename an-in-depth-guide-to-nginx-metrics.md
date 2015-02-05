@@ -8,7 +8,7 @@ You can think of this as a companion to both the official Nginx documentation on
 
 For now, this guide covers only the metrics available via [`ngx_http_stub_status_module`](http://nginx.org/en/docs/http/ngx_http_stub_status_module.html) and variables associated with the F/OSS version of Nginx.  More comprehensive metrics are available via [`ngx_http_stub_status_module`](http://nginx.org/en/docs/http/ngx_http_stub_status_module.html), which is included with the commercial version (Nginx Plus).  A later revision of this guide will be expanded to include those Nginx Plus metrics.
 
-So roll up you sleeves, grab a slanket or snuggie, and let's talk Nginx metrics...
+So roll up your sleeves, grab your Slanket or Snuggie, and let's talk Nginx metrics...
 
 ## Data Sources
 
@@ -16,7 +16,7 @@ Metrics are available from two sources:
 
   *  **Nginx Status Modules** - The most direct way to get the goods.  Data is available either through polling a configurable web page (such as /status) or via embedded variables that can be output to log files.  Note:  Polling is the preferred method of access, as Nginx does not provide embedded variables for all of the metrics available via the status module.
 
-  *  **Log Files** - Additional metrics can be synthesized by reading certain Nginx variables from the logs and performing calculations on them.  This is a slighly less-direct technique and requires an outside service to do those calculations (rates, averages, minimums, maximums, etc.), but it's a perfectly workable approach.  You accomplish this by defining a custom log format using the [`log_format`](http://nginx.org/en/docs/http/ngx_http_log_module.html#log_format) directive and writing the variables you care about to the logs.  Your monitoring service then reads the logs and runs the necessary calculations.
+  *  **Log Files** - Additional metrics can be synthesized by reading certain Nginx variables from the logs and performing calculations on them.  This is a slightly less-direct technique and requires an outside service to do those calculations (rates, averages, minimums, maximums, etc.), but it's a perfectly workable approach.  You accomplish this by defining a custom log format using the [`log_format`](http://nginx.org/en/docs/http/ngx_http_log_module.html#log_format) directive and writing the variables you care about to the logs.  Your monitoring service then reads the logs and runs the necessary calculations.
 
 ## It's All About The Connections
 
@@ -34,7 +34,7 @@ Connections are handled one layer down from the application data (at the TCP lay
 
 Nginx connections can take one of several states:
 
-  *  **Accepted** - After a completed TCP handshake between the client and Nginx, a connection is considered Accepted.  It then takes one one of 3 sub-states:
+  *  **Accepted** - After a completed TCP handshake between the client and Nginx, a connection is considered Accepted.  It then takes one of 3 sub-states:
 
     *  **Idle / Waiting** - no data is currently being received by or sent to the client.  A connection will be in this state under two circumstances:  First, in between the completion of the request and the initiation of the response;  Second, in between a completed response and the next request.  As of HTTP 1.1, all connections are considered persistent unless declared otherwise, so a connection will remain open until it is closed or times out.
 
@@ -78,7 +78,7 @@ The _current_ number of connections from clients where Nginx is writing a respon
 
 #### `Waiting`
 
-The _current_ number of connections from cluents that are in the **Idle / Waiting** state, waiting for a request.
+The _current_ number of connections from clients that are in the **Idle / Waiting** state, waiting for a request.
 
 ## Selected Log File Variables
 
@@ -96,10 +96,10 @@ The number of bytes sent to a client, not including the response header.  This c
 
 #### `$http_referer`
 
-The value of the `HTTP referer` header from the incoming request.  This is determined by the requesting browser and identifies the URL of the webpage that linked to the resource being requested.  Two interesting notes on this:  
-  1.  The word "referrer", at least in English, is spelled with two Rs, but the original mis-spellling from the HTTP spec ([RFC 1945](http://tools.ietf.org/html/rfc1945)) managed to stick around.
+The value of the `HTTP Referer` header from the incoming request.  This is determined by the requesting browser and identifies the URL of the page that linked to the resource being requested.  Two interesting notes on this:  
+  1.  The word "referrer", at least in English, is spelled with two Rs, but the original misspelling from the HTTP spec ([RFC 1945](http://tools.ietf.org/html/rfc1945)) managed to stick around.
 
-  2.  Since the header is set by the client making the request, it, like any data packet, can be modified.  Lately this has resulted in what's known as "referer spam", where malicious clients will spoof their referer headers to instead show spammy websites for consumers of analytics or monitoring software to see, be tempted by, and (they hope), visit.
+  2.  Since the header is set by the client making the request, it, like any data packet, can be modified.  Lately this has resulted in what's known as "referrer spam", where malicious clients will spoof their referrer headers to instead show spammy websites for consumers of analytics or monitoring software to see, be tempted by, and (they hope), visit.
   
 #### `$http_user_agent`
 
@@ -111,7 +111,7 @@ The [IP address](http://en.wikipedia.org/wiki/IP_address) of the client making t
   
 #### `$remote_user`
 
-The user name supplied if [HTTP Basic authentication](http://en.wikipedia.org/wiki/Basic_access_authentication) is used for the request.
+The username supplied if [HTTP Basic authentication](http://en.wikipedia.org/wiki/Basic_access_authentication) is used for the request.
   
 #### `$request`
 
@@ -129,7 +129,7 @@ $request_method $request_uri $server_protocol
     
 A breakdown of these variables:
 
-  * `$request_method` - The [HTTP method](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) of the request.  Most common methods used by browsers supporting HTTP 1.1 are GET, POST, PUT and DELETE, but the spec also includes OPTIONS, HEAD, TRACE and CONNECT (details on each available at the preceeding link.)
+  * `$request_method` - The [HTTP method](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) of the request.  Most common methods used by browsers supporting HTTP 1.1 are GET, POST, PUT and DELETE, but the spec also includes OPTIONS, HEAD, TRACE and CONNECT (details on each available at the preceding link.)
 
   * `$request_uri` - The original URI requested (with arguments).  Note that if the ultimate resource returned is different from the one requested (due to redirects or other changes), that will not be logged here -- this is what the client asked for originally.
 
@@ -171,13 +171,13 @@ The number of requests made through a the `$connection` that's being referenced 
 
 We're highlighting these both mostly to avoid confusion:  If you're interested in monitoring the size of incoming requests or overall incoming bandwidth, use `$request_length`.
 
-Because `$content_length` is drawn from a request header, it's calculcated by the client and therefore has the potential to be spoofed (in the case of a DDoS attack, for example.)
+Because `$content_length` is drawn from a request header, it's calculated by the client and therefore has the potential to be spoofed (in the case of a DDoS attack, for example.)
 
 #### `$gzip_ratio`
 
 If Gzip is enabled on responses, the compression ratio of the response (the ratio between the original and compressed response sizes.)
 
-Gzip compression is a feature that Nginx provides (through [`ngx_http_gzip_module`](http://nginx.org/en/docs/http/ngx_http_gzip_module.html)) that pipes responses through the [gzip](http://www.gzip.org/) compression software before sending them to the client.  This can reduce the size of responses by 50% or more and provide a significant outbound bandwidth savings.  Gzip is extremely fast, but there is still material overhead in the compression process (both in terms of CPU usage and response time), though some of this overhead is recovered in the transfer-time savings from the smaller file.
+Gzip compression is a feature that Nginx provides (through [`ngx_http_gzip_module`](http://nginx.org/en/docs/http/ngx_http_gzip_module.html)) that pipes responses through the [gzip](http://www.gzip.org/) compression software before sending them to the client.  This can reduce the size of responses by 50% or more and provide a significant outbound bandwidth savings.  Gzip is extremely fast, but there is still material overhead in the compression process (both in terms of CPU usage and response time), though some of this overhead is recovered in the transfer time savings from the smaller file.
 
 It's a delicate balance to strike so be sure to monitor your resource usage closely if you decide to use gzip compression.
 
@@ -189,7 +189,7 @@ Either the hostname of the server (as resolved by the client making the request 
 
 #### `$http_`_name_ and `$upstream_http`_name_
 
-Following the pattern of `$http_referer` and `$http_user_agent` above, Nginx actually allows you to access any of the [HTTP request headers](http://en.wikipedia.org/wiki/List_of_HTTP_header_fields) by referencing `$http_` and the header name (converted to lower case, with dashes replaced by underscores).
+Following the pattern of `$http_referer` and `$http_user_agent` above, Nginx actually allows you to access any of the [HTTP request headers](http://en.wikipedia.org/wiki/List_of_HTTP_header_fields) by referencing `$http_` and the header name (converted to lowercase, with dashes replaced by underscores).
 
 Similarly, you can access the headers as returned by any upstream servers by appending "upstream" to the front of the desired header name. 
 
