@@ -1,6 +1,6 @@
 # How to Monitor Nginx:  The Complete Guide
 
-Nginx is an increasingly popular open source HTTP and reverse proxy server that's known for its high concurrency, high performance, and low memory usage.  It's become the second most popular public-facing web server (as of December 2014) among the top 1M busiest sites online, and it's pretty awesome.
+Nginx is an increasingly popular open-source HTTP and reverse proxy server that's known for its high concurrency, high performance, and low memory usage.  It's become the second most popular public-facing web server (as of December 2014) among the top 1M busiest sites online, and it's pretty awesome.
 
 But, like any piece of long-running software (or small child), it can get into trouble if left completely unattended.  
 
@@ -51,7 +51,7 @@ There is a (configurable) hard limit on the total number of connections that Ngi
 The limit is equal to the # of [`worker_connections`]() * [`worker_processes`]().  Once the limit is reached, connections will be dropped and performance will suffer.  Note that this limit includes all connections (i.e. both connections from clients and connection to upstream servers), so be sure to set a high enough limit relative to the hardware and expected server load.
 
   * **Monitor** active connections by reading `Active connections` from `ngx_http_stub_status_module`.
-  * **Set an alert** as your active connections approach the maximum connection limit.  We recommend setting the alert to 70% of the limit to give youself room to adjust without setting off false positives.
+  * **Set an alert** as your active connections approach the maximum connection limit.  We recommend setting the alert to 70% of the limit to give yourself room to adjust without setting off false positives.
 ###  
   * **Monitor** both `connections handled` and `connections accepted` by reading their respective values from `ngx_http_stub_status_module`.  Under normal circumstances, these should be equal.
   * **Set an alert** if `connections handled` falls below `connections accepted` - this means that Nginx is dropping connections before completion and is an indication that a resource limit has been reached.
@@ -91,7 +91,7 @@ Nginx (and web servers in general) are constrained by CPU and network bandwidth 
 The number of simultaneous connections (including client connections and upstream server connections) cannot exceed Nginx's limit on the maximum number of open files, configured using the `worker_rlimit_nofile` directive).  By monitoring the number of open files relative to the limit, you have an idea of how much headroom your system has for additional connections.
 
   * **Monitor** the number of open file handles.
-  * **Set an alert** when the number of open file handles reaches 70% of the `worker_rlimit_nofile` limit - this means it's time to increase the limit before it reaches capacity and connections are dropped.  Tune this % as needed to minimize noisey alerts and to suit your deployment.
+  * **Set an alert** when the number of open file handles reaches 70% of the `worker_rlimit_nofile` limit - this means it's time to increase the limit before it reaches capacity and connections are dropped.  Tune this % as needed to minimize noisy alerts and to suit your deployment.
 
 ### The Server
 
@@ -127,7 +127,7 @@ Your servers live within a hosting provider, so you'll want to know about big co
 #### 12.  Provider status.
 
   * **Monitor** Hosting provider status.  This will depend on your provider, but some will offer this via an API while others will simply provide a status page (such as 'status.yourprovider.com').  Configure your monitoring tools to watch and report on the appropriate status endpoint.
-  * **Set an alert** if the provider's connectivity or availbility fails. 
+  * **Set an alert** if the provider's connectivity or availability fails. 
 
 ### User Behavior
 
@@ -160,7 +160,7 @@ Similar to above, the Certificate Authority from whom you purchased your certs w
 
 ## A Note on Higher-Level Alerts & Duplication
 
-One of the side effects of the layered approach is that because each layer encompasses its preceeding layers, there will be some level of duplication of alerts when higher-layers events trigger.
+One of the side effects of the layered approach is that because each layer encompasses its preceding layers, there will be some level of duplication of alerts when higher-layers events trigger.
 
 Your hosting provider failing, for example, will trigger alerts in every layer of the stack.  But this is ok, because those higher-level alerts will provide details that will help you pinpoint the issue more quickly.  
 
@@ -168,7 +168,7 @@ Your RPS may go to 0 for several reasons - and you'll want to know about it rega
 
 ## Digging in Deeper
 
-These 15 metrics constitute the most critical Nginx metrics, and if you monitor and alert as we've outlined above, you can rest eas(ier) knowing you've covered a majority of failure scenarios. Of course every environment is different, so your specific needs may vary (and batteries won't be included, etc. etc.)  
+These 15 metrics constitute the most critical Nginx metrics, and if you monitor and alert as we've outlined above, you can rest easy(er) knowing you've covered a majority of failure scenarios. Of course every environment is different, so your specific needs may vary (and batteries won't be included, etc. etc.)  
 
 Be sure to check out our [In-Depth Guide to Nginx Metrics]() to learn about the complete list of measurable Nginx metrics so you can customize your monitoring to suit.
 
