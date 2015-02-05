@@ -30,23 +30,23 @@ There's a tradeoff here -- tighter trigger thresholds will make for noisier aler
 
 Noisy alerts also open you up to potential "alert exhaustion" -- where you become so used to seeing a particular alert that - often unconsciously - you start to take it less seriously.  This can have the paradoxical effect of making the alert less effective despite its vocality (since you'll be more likely to ignore it when there's a real incident - the DevOps version of crying wolf.)
 
-The optimial strategy is to find the right balance between a tolerable number of false positives and the security that you're not missing anything major.
+The optimal strategy is to find the right balance between a tolerable number of false positives and the security that you're not missing anything major.
 
-We recommend erring on the side of tighter thresholds to start.  Despite the risk of alert exhaustion, it's generally preferrable to to face the "this alert is too noisy" problem than "I didn't know about the server failure for 30 minutes" problem.
+We recommend erring on the side of tighter thresholds to start.  Despite the risk of alert exhaustion, it's generally preferrable to face the "this alert is too noisy" problem than "I didn't know about the server failure for 30 minutes" problem.
 
 ## How an Alert is Structured
 
 If we were to define a "universal template" for an alert, it would look like this:
 
-    [Metric] [Comparitor] [Threshold]
+    [Metric] [Comparator] [Threshold]
 
-The **metric** is the value (either direct or computed) we're monitoring.  The **comparitor** is the comparison operator, i.e. "greater than", "less than", "equals".  And the **threshold** is the value to be compared against (we'll explore thresholds in more depth in a later section.)  If the entire expression evaluates as truthy, the alert will fire.  
+The **metric** is the value (either direct or computed) we're monitoring.  The **comparator** is the comparison operator, i.e. "greater than", "less than", "equals".  And the **threshold** is the value to be compared against (we'll explore thresholds in more depth in a later section.)  If the entire expression evaluates as truthy, the alert will fire.  
 
 Let's take a simple example:
 
     CPU usage > 90%
 
-Our **metric** is "CPU usage", our **comparitor** is >, and our **threshold** is 90%.  This is an example of what we call a Fixed Threshold - an absolute value.
+Our **metric** is "CPU usage", our **comparator** is >, and our **threshold** is 90%.  This is an example of what we call a Fixed Threshold - an absolute value.
 
 A slightly more complex example:
 
@@ -90,17 +90,17 @@ Varying the distance in the past you look at can have benefits -- a longer-term 
 
 #### Grace Period
 
-A grace period is an alert modifier that's slightly outside the bounds of our stanard model, but can be incredibly useful.  Employing a grace period means an alert won't fire unless it's triggered for a sustained period of time.  This is useful if you want to disregard the behavior of a metric in small bursts but be alerted to a longer period of that behavior.  
+A grace period is an alert modifier that's slightly outside the bounds of our standard model, but can be incredibly useful.  Employing a grace period means an alert won't fire unless it's triggered for a sustained period of time.  This is useful if you want to disregard the behavior of a metric in small bursts but be alerted to a longer period of that behavior.  
 
 For example, when monitoring CPU usage on certain low or medium volume servers, the occasional spike to 100% is not notable.  But if the CPU usage remains at 100% for 15 minutes, that could indicate a stuck process, so an alert as follows would be great:
 
     CPU Usage > 90% for 10 minutes or more
 
-This specific alert, btw, is particularly helpful if you're using some sort metered service such as Amazon's T2 "burstable" instances.  In those environments, a stuck CPU will depleat your usage credits and render your system unusable, so this is something you definitely want to know about.
+This specific alert, btw, is particularly helpful if you're using some sort metered service such as Amazon's T2 "burstable" instances.  In those environments, a stuck CPU will deplete your usage credits and render your system unusable, so this is something you definitely want to know about.
 
 #### Advanced Techniques
 
-There exists a sub-field of statistical and data mining research devoted to more sophisticated "anomaly detection" techniques.  Examples include the Holt-Winters algoithm or a heuristic called the Western Electric Rules.  These are outside the scope of this article, however it's worth noting that we expect to see these sorts of advanced techniques make their way into professional alerting tools.  [Wikipedia has some more details here](http://en.wikipedia.org/wiki/Anomaly_detection).
+There exists a sub-field of statistical and data mining research devoted to more sophisticated "anomaly detection" techniques.  Examples include the Holt-Winters algorithm or a heuristic called the Western Electric Rules.  These are outside the scope of this article, however it's worth noting that we expect to see these sorts of advanced techniques make their way into professional alerting tools.  [Wikipedia has some more details here](http://en.wikipedia.org/wiki/Anomaly_detection).
 
 ## Metrics and the Alerts that Love Them
 
@@ -110,7 +110,7 @@ Ok, now that we've covered the various threshold types, let's explore the most c
 
 These measure things with a fixed, known capacity like disk space, free memory, or open file handles.  If something can "fill up" or "run out", it's generally measured with a capacity metric.  In particular, capacity metrics usually imply that bad things will happen (performance- and stability-wise) when that capacity is reached.
 
-  * **Alert Theshold to Use**:  Fixed
+  * **Alert Threshold to Use**:  Fixed
   * **How To Set Threshold**:  Ask the following questions for each metric you're monitoring:  
     * What is the capacity of this value (i.e. how much disk space do I have?);
     * What happens when I reach that capacity (i.e. how severe is it if I run out of disk space?); and
@@ -135,11 +135,11 @@ The last question, of course, can only be answered after a period of observation
 State metrics relate to a discrete state value of something and pair with state-based thresholds.
 
   * **Alert Threshold to Use**:  State-based
-  * **How to Set Threshold**:  The state threshold is based on which state changes you care about.  If you wan to know when a process terminates, you'll monitor for a state change from "running" to "stopped".
+  * **How to Set Threshold**:  The state threshold is based on which state changes you care about.  If you want to know when a process terminates, you'll monitor for a state change from "running" to "stopped".
 
 ### Rate Metrics
 
-Rate metrics measure the rate at which underlying events happen and typically have a "per unit of time" component.  These are similar to bandwidth metrics mathematically, but distinct in the context of monitoring.  While bandwidth metrics measure the rate of flow of an underlying resoruce, rate metrics measure the rate at which discrete monitorable events take place.
+Rate metrics measure the rate at which underlying events happen and typically have a "per unit of time" component.  These are similar to bandwidth metrics mathematically, but distinct in the context of monitoring.  While bandwidth metrics measure the rate of flow of an underlying resource, rate metrics measure the rate at which discrete monitorable events take place.
 
 Examples include "requests per second", "errors per second", "login attempts per minute", or "5xx requests per hour."
 
@@ -147,20 +147,20 @@ Examples include "requests per second", "errors per second", "login attempts per
   * **How to Set Alert Threshold**:  Rate metrics are slightly more complicated to alert.  Ask the following questions:
     * What is normal? 
     * What is deviation from normal?
-    * How predictible is this deviation?
+    * How predictable is this deviation?
     * How dangerous is it when deviation happens?
 
 Remember - iteration is your friend here.  Don't get too hung up on setting the perfect starting threshold - just get close enough, keep an eye on things, and iterate as you get more data.
 
 "Normal" and "deviation from normal" will depend on the metric.  For some error types, normal is 0, so any deviation is something you'll want to know about, and you'll want to set a fixed threshold to alert if that number becomes greater than 0.  
 
-For requests per second, your traffic might vary on a regular cyclical weekly pattern (as we described in our example earlier), so a sliding window comparing against the previous week will work best to highlight anomolies.
+For requests per second, your traffic might vary on a regular cyclical weekly pattern (as we described in our example earlier), so a sliding window comparing against the previous week will work best to highlight anomalies.
 
-The more predictible a metric, the easier it is to set thresholds.  On a predictible ("smooth") metric, you'll want to look for sudden deviations from historical norms.  On a less-predictible ("spikey") metric, you may be better off setting a fixed threshold based on historical minimum or maximum values.
+The more predictable a metric, the easier it is to set thresholds.  On a predictable ("smooth") metric, you'll want to look for sudden deviations from historical norms.  On a less-predictable ("spikey") metric, you may be better off setting a fixed threshold based on historical minimum or maximum values.
 
 (**Protip**:  You can use smoothing (averaging) to turn a spikey metric into a smoother metric, at the cost of some delay.)
         
-Finally, thikn about how "dangerous" it is when a deviation happens -- this will be instructive to how your alert threshold should be set.  If your requests per second quintuples (and you can handle the load), you'll want to know about the change, but it may not be high-urgency.  In that case you can employ a sliding window threshold to smooth out the change.  If your error rate quintuples, however, you'll want to know right away so a tighter (and perhaps noisier) threshold will be best.
+Finally, think about how "dangerous" it is when a deviation happens -- this will be instructive to how your alert threshold should be set.  If your requests per second quintuples (and you can handle the load), you'll want to know about the change, but it may not be high-urgency.  In that case you can employ a sliding window threshold to smooth out the change.  If your error rate quintuples, however, you'll want to know right away so a tighter (and perhaps noisier) threshold will be best.
 
 ### Event Parameter Metrics
 
@@ -188,13 +188,11 @@ An example of an alert escalation stack:
     Available Disk < 10% (Send Push Notification)
     Available Disk < 1% (Phone Call)
 
-
-
 ## A Final Note on Iteration & Tuning
 
 We hope this has been a solid exploration of (surprisingly complex!) art of setting alerts.  We want to emphasize again that setting thresholds should be an iterative process - digest this guide and set reasonable starting points to the best of your ability, but don't agonize.
 
-If an alert is too noisey, you can relax the threshold, add a grace period, or try a sliding window to smooth out the underlying metric.  
+If an alert is too noisy, you can relax the threshold, add a grace period, or try a sliding window to smooth out the underlying metric.  
 
 If you've found that your missing important events, look for places to tighten your threshold or perhaps add an additional alert.
 
