@@ -80,7 +80,7 @@ The metrics we're interested in here are those that report on process state ("cr
 
 ### Layer 2:  The Server
 
-Next up is the server itself - the container (either physical or virtual) for your processes.  At this layer, we care about the the health and resource usage of the overall system.  This becomes particularly important if that system hosts multiple applications (either yours or other users'), since their behavior can have an impact on your target application's performance.
+Next up is the server itself - the container (either physical or virtual) for your processes.  At this layer, we care about the health and resource usage of the overall system.  This becomes particularly important if that system hosts multiple applications (either yours or other users'), since their behavior can have an impact on your target application's performance.
 
 Server metrics include system-wide resource usage data (CPU, memory, disk and network usage), summary metrics (total # of processes, load average, socket state and availability) and hardware state and health (disk health, memory health, physical-port access and use, CPU temperature, and fan speed.)
 
