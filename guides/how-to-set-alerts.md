@@ -1,6 +1,6 @@
 # How to Set Alerts
 
-In our guide [Zen and the Art of Server Monitoring](), we cover the three main tools you should be using to monitor your systems effectively:  Logs, graphs and alerts.
+In our guide [Zen and the Art of Server Monitoring](zen-and-the-art-of-server-monitoring.md), we cover the three main tools you should be using to monitor your systems effectively:  Logs, graphs and alerts.
 
 In this guide we're going to take a closer look at alerts, and, more specifically, how alerts are constructed, when they should trigger, and how they should notify you.
 
@@ -76,7 +76,7 @@ Both the metric and the fixed threshold can be compound values (such as averages
 
 Fixed thresholds make sense when you're dealing with well-characterized, hard limits such as CPU usage, network usage, disk space or process count.  
 
-### Historical Threshold
+### <a name="historical-threshold"></a> Historical Threshold
 
 Historical thresholds are based on the comparison of a metric to past values.  We also refer to these thresholds as "sliding windows" since they typically look at a specified width (aka window) of time over a period that moves as the clock ticks.  An example:
 
@@ -158,7 +158,7 @@ For requests per second, your traffic might vary on a regular cyclical weekly pa
 
 The more predictable a metric, the easier it is to set thresholds.  On a predictable ("smooth") metric, you'll want to look for sudden deviations from historical norms.  On a less-predictable ("spikey") metric, you may be better off setting a fixed threshold based on historical minimum or maximum values.
 
-(**Protip**:  You can use smoothing (averaging) to turn a spikey metric into a smoother metric, at the cost of some delay.)
+  * **Protip**:  You can use smoothing (averaging) to turn a spikey metric into a smoother metric, at the cost of some delay.
         
 Finally, think about how "dangerous" it is when a deviation happens -- this will be instructive to how your alert threshold should be set.  If your requests per second quintuples (and you can handle the load), you'll want to know about the change, but it may not be high-urgency.  In that case you can employ a sliding window threshold to smooth out the change.  If your error rate quintuples, however, you'll want to know right away so a tighter (and perhaps noisier) threshold will be best.
 
@@ -173,7 +173,7 @@ These are metrics for an objective quantitative attribute like size or time (i.e
 
 A deviation in response size can be normal - perhaps a user is downloading a large file - but a sustained deviation can be something you'll want to know about (is the user scraping your entire site?) - so a grace period + average over the past 15 minutes would alert to that issue.  But a rapid increase in response time could be an early indication of problems elsewhere in your stack, so an alert based on the average response time over the past 5 minutes compared with the past week would highlight a rapid change quickly.
 
-## How an Alert Notifies You
+## <a name="notification"></a> How an Alert Notifies You
 
 In the good 'ol days of operations, there weren't many options for how you could be notified.  If you were in the datacenter, you'd keep an eye out for the blinking light of doom.  If you were at home sleeping, someone might call you to tell you about the blinking light of doom.  Pagers then brought a new dimension to the process -- the blinking light of doom could now wake you up directly!
 
@@ -196,6 +196,6 @@ If an alert is too noisy, you can relax the threshold, add a grace period, or tr
 
 If you've found that your missing important events, look for places to tighten your threshold or perhaps add an additional alert.
 
-And finally, We hope you've found this reference valuable, enlightening, and perhaps even fun (ok, ok, we won't push it.)  If you didn't - let us know!  This, along with all of the Scalyr Community Guides, [is editable on Github]().  If we've gotten something wrong, please make a correction and submit a pull request or leave a comment below.  We are believers in [Cunningham's Law](http://meta.wikimedia.org/wiki/Cunningham%27s_Law) (best seen in [xkcd 386](http://xkcd.com/386/)) so we value and deeply appreciate feedback.
+And finally, we hope you've found this reference valuable, enlightening, and perhaps even fun...(ok, ok, we won't push it.)
 
 Good luck and happy alerting!

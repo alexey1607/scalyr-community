@@ -39,10 +39,10 @@ We approach this philosophy as one would any good engineering problem - by havin
 
 Once we've done this, the heart of our strategy can be deployed.
 
-  1.  Monitor Potential Bad Things (Alert before they happen)
-  2.  Monitor Actual Bad Things (Alert when they do happen, which is, unfortunately, inevitable)
-  3.  Monitor Good Things (Alert when they stop happening)
-  4.  Tune and Continuously Improve
+  1.  **Monitor Potential Bad Things** (Alert before they happen)
+  2.  **Monitor Actual Bad Things** (Alert when they do happen, which is, unfortunately, inevitable)
+  3.  **Monitor Good Things** (Alert when they stop happening)
+  4.  **Tune and Continuously Improve** (Iterate!)
 
 Let's explore what all of these mean in practice.
 
@@ -56,7 +56,7 @@ Our core components are alerts, graphs, and logs.  These work together to help y
 
   - **Logs** store your raw data.  A log is traditionally a file (but can also be a database table or document set) that records event data from the operating system or application in a linear time series.  Whereas graphs summarize (and, potentially, average away certain specifics), logs will always have the finest level of detail.
 
-## Where to Monitor
+## <a name="layers"></a> Where to Monitor
 
 Armed with our tools, let's approach the task of monitoring by first breaking our application into a multi-layer stack - a model of our system.  We start at the core - the application itself - and each layer up reflects the services that surround and support the proceeding layer.  (We'd make an onion / ogre joke here but c'mon - this is a serious technical article.)
 
