@@ -82,7 +82,7 @@ It's beyond the scope of this guide to dive into _every_ Nginx log variable.  In
 
 The default Nginx access log (used by declaring `log_format combined` in your configuration file) uses the following variables:
 
-  **`$body_bytes_sent`** - The number of bytes sent to a client, not including the response header.  This allows you to monitor individual response size or, in aggregate, gives you a relative measure of of outbound bandwidth.
+  **`$body_bytes_sent`** - The number of bytes sent to a client, not including the response header.  This allows you to monitor individual response size or, in aggregate, gives you a relative measure of outbound bandwidth.
 
 -------
   **`$http_referer`** - The value of the `HTTP Referer` header from the incoming request.  This is determined by the requesting browser and identifies the URL of the page that linked to the resource being requested.  Two interesting notes on this:  
@@ -112,11 +112,11 @@ The request line is actually a compound variable is composed of 3 sub-variables 
  
 A breakdown of these variables:
 
-  * **`$request_method`** - The [HTTP method](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) of the request.  Most common methods used by browsers supporting HTTP 1.1 are GET, POST, PUT and DELETE, but the spec also includes OPTIONS, HEAD, TRACE and CONNECT (details on each available at the preceding link.)
+  * **`$request_method`** - The [HTTP method](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) of the request.  Most common methods used by browsers supporting HTTP 1.1 are GET, POST, PUT, and DELETE, but the spec also includes OPTIONS, HEAD, TRACE and CONNECT (details on each available at the preceding link.)
 
   * **`$request_uri`** - The original URI requested (with arguments).  Note that if the ultimate resource returned is different from the one requested (due to redirects or other changes), that will not be logged here -- this is what the client asked for originally.
 
-  * **`$server_protocol`** - The application-level protocol and version used in the request.  You'll most commonly see HTTP/1.0 or HTTP/1.1, but Nginx supports SPDY, WebSockets and several mail protocols as well.  
+  * **`$server_protocol`** - The application-level protocol and version used in the request.  You'll most commonly see HTTP/1.0 or HTTP/1.1, but Nginx supports SPDY, WebSockets, and several mail protocols as well.  
 
 ------- 
   **`$time_local`** - The local (server) time in the [Common Log Format](http://en.wikipedia.org/wiki/Common_Log_Format).  That time format is `dd/mm/yyyy:hh:mm:ss UTC-offset`
@@ -144,9 +144,9 @@ These variables are not included in the default combined log format.
 ------- 
   **`$content_length`** - the HTTP Content-Length request header field.  This is the total size (in bytes) of the body of the request being made by the client, as reported by the client.
 
-  **`$request_length`** - the full request length (in bytes) - including the request line, header and body, as calculated by Nginx.  
+  **`$request_length`** - the full request length (in bytes) - including the request line, header, and body, as calculated by Nginx.  
 
-  * We're highlighting both `$content_length` and `$request_length` mostly to avoid confusion:  If you're interested in monitoring the size of incoming requests or overall incoming bandwidth, use `$request_length`.  Because `$content_length` is drawn from a request header, it's calculated by the client and therefore has the potential to be spoofed (in the case of a DDoS attack, for example.)
+  * We're highlighting both `$content_length` and `$request_length` mostly to avoid confusion:  If you're interested in monitoring the size of incoming requests or overall incoming bandwidth, use `$request_length`.  Because `$content_length` is drawn from a request header, it's calculated by the client and, therefore, has the potential to be spoofed (in the case of a DDoS attack, for example.)
 
 ------- 
   **`$gzip_ratio`** - If [gzip](http://www.gzip.org) is enabled on responses, the compression ratio of the response (the ratio between the original and compressed response sizes.)

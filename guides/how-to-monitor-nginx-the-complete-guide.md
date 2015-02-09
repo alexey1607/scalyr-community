@@ -137,7 +137,7 @@ Your servers live within a hosting provider, so you'll want to know about big co
 
 ### 15.  SSL Certificate expiration
 
-Likewise, an expired SSL certificate can wreak just as much havoc.  The Certificate Authority from whom you purchased your certs will likely bug you plenty as your expiration dates near, but a backstop on your monitoring platform is also good idea.  
+Likewise, an expired SSL certificate can wreak just as much havoc.  The Certificate Authority from whom you purchased your certs will likely bug you plenty as your expiration dates near, but a backstop on your monitoring platform is also a good idea.  
 
   * **Monitor** SSL certificate expiration dates.  
   * **Set an alert** 30 days from the expiration date.  We recommend a 30-day alert in particular because certificate issuance/renewal can take longer than other services (in the case of Extended Validation certificates, for example.)
@@ -160,7 +160,7 @@ We recommend monitoring static pages (that only Nginx responds to) as well as dy
 
 One of the side effects of our layered approach is that there will be some level of alert duplication when higher-layer events trigger.
 
-A failure of your hosting provider, for example, will trigger alerts in every layer of the stack beneath it (server status, request volume, etc.) But this is ok, because those higher-level alerts will provide details that will help you pinpoint the issue more quickly.  
+A failure of your hosting provider, for example, will trigger alerts in every layer of the stack beneath it (server status, request volume, etc.) But this is ok because those higher-level alerts will provide details that will help you pinpoint the issue more quickly.  
 
 Your RPS may go to 0 for several reasons - and you'll want to know about it regardless - but if it's because of a hosting failure, that extra alert will prevent your wasting time chasing other potential causes.
 

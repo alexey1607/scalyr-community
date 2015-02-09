@@ -16,7 +16,7 @@ In this guide, we're going to explore exactly what we mean by "effective monitor
 
 Three historical challenges to effective monitoring are a false sense of security, a lack of cohesive tools, and the wrong mindset.  These are related to one another. 
 
-The false sense of security looks like this:  "I care if my site goes down.  A ping test will let me know if my site goes down, so all I need is a ping test!" (A ping test is a simple monitor that pings your site and alterts accordingly - green = up, red = down.) 
+The false sense of security looks like this:  "I care if my site goes down.  A ping test will let me know if my site goes down, so all I need is a ping test!" (A ping test is a simple monitor that pings your site and alerts accordingly - green = up, red = down.) 
 
 But a ping test alone won't keep you safe.  You'll only know about problems once they've spilled over and caused a crash.  And you'll miss other problems (say, for example, if your site stays up but hackers replace all of your images with pictures of tiny kittens playing tiny violins.)
 
@@ -32,7 +32,7 @@ We address these challenges by presenting to you our cohesive approach to monito
 
 At its core, our philosophy is as follows:
 
-  1.  **Identify as many problems (and potential problems) as possible**.  The larger your monitoring surface, the better chance you have to spot issues that, left unchecked, could grow into bigger issues, and the lesser chance you'll miss those weird edge case problems.
+  1.  **Identify as many problems (and potential problems) as possible**.  The larger your monitoring surface, the better chance you have to spot issues that, left unchecked, could grow into bigger issues, and the lesser chance you'll miss that weird edge case.
   2.  **Identify problems (and potential problems) as early as possible**.  This is key - the sooner you know about something, the better chance you'll have to address it before it escalates.  Longer lead times are your friend. 
   3.  **Generate as few false alarms as possible**.  False alarms (aka false positives) can lead to "alert fatigue" - where you get so used to seeing a noisy alert that it starts to carry less psychological weight.  And this alert fatigue can - paradoxically - lead to more downtime if you accidentally disregard an actual event.  Do not, in other words, allow your monitoring system to cry wolf. 
   4.  **Do it all with as little work as possible.**  We are engineers, after all.
@@ -60,7 +60,7 @@ Our core components are alerts, graphs, and logs.  These work together to help y
 
 ## <a name="layers"></a> Where to Monitor
 
-To best deploy our tools, let's first break our application into a multi-layer stack.  At the bottom is the application itself and each layer up represents the services and components that support the preceding layer (We'd make an onion / ogre joke here but c'mon - this is a serious technical article.)
+To best deploy our tools, let's first break our application into a multi-layer stack.  At the bottom is the application itself and each layer up represents the services and components that support the preceding layer (We'd make an onion / ogre joke here, but c'mon - this is a serious technical article.)
 
 By intelligently monitoring the right metrics in each layer, we'll get a complete view of the application and maximize monitoring coverage.
 
@@ -78,7 +78,7 @@ The metrics we're interested in here are those that report on process state ("cr
 
 ### Layer 2:  The Server
 
-One way of looking at a server is simply as a container (either physical or virtual) for your processes.  At this layer, we care about the health and resource usage of the overall system.  This becomes particularly important if that system hosts multiple applications (either yours or other users'), since their behavior can have an impact on your target application's performance.
+One way of looking at a server is simply as a container (either physical or virtual) for your processes.  At this layer, we care about the health and resource usage of the overall system.  This becomes particularly important if that system hosts multiple applications (either yours or other users') since their behavior can have an impact on your target application's performance.
 
 Server metrics include system-wide resource usage data (CPU, memory, disk and network usage), summary metrics (total # of processes, load average, socket state and availability) and hardware state and health (disk health, memory health, physical-port access and use, CPU temperature, and fan speed.)
 
@@ -107,7 +107,7 @@ Finally, we get to the last (but certainly not least) layer in our stack - the u
 
 At the user layer, we're interested in the behavior of the full stack as a user would experience it (similar to an integration test in TDD terms.)  In practice, this can be as simple as an external HTTP monitor that looks for a 200 OK response from an API endpoint or a series of automated browser tests that check a sequence of pages for specific responses.
 
-This can also include wider-ranged metrics that happen to roll up a number of lower-level behaviors and implicitly test them.  At Google, for example, internal lore held that the most important alert in the entire operations system was the measurement of “advertising dollars earned per second.”  This is a great integration metric to watch, because a change could point to anything from a data center connectivity problem to a code bug to mistuning in the AdWords placement algorithms.  
+This can also include wider-ranged metrics that happen to roll up a number of lower-level behaviors and implicitly test them.  At Google, for example, internal lore held that the most important alert in the entire operations system was the measurement of “advertising dollars earned per second.”  This is a great integration metric to watch because a change could point to anything from a data center connectivity problem to a code bug to mistuning in the AdWords placement algorithms.  
 
 ## What to Monitor
 
@@ -138,9 +138,9 @@ Lock contention can also cause a tipping point on an otherwise lightly loaded se
 
 ### 2. Monitor Actual Bad Things 
 
-Despite our best efforts of prevention, things will break.  
+Despite our best efforts, things will break.  
 
-When they, your best defense is to be prepared, respond quickly, gather as much data about the problem as possible, identify the cause as quickly as possible, and fix it.  
+When they, your best defense is to be prepared, respond quickly, gather as much data about the problem as possible, identify the cause as quickly as possible and fix it.  
 
 (In some cases, of course, that remedy is to wait for an external dependency to come back online, but there are still ways to mitigate problems with backup providers and failover rules.)
 
@@ -163,7 +163,7 @@ Exceptions come in several flavors -- most commonly as application exceptions (t
 
 (For example, if your web server process is failing in some way that causes logs not to be written, then you've lost that dimension of monitoring - so catching exceptions from the server process itself is important.)
 
-Application exceptions provide some of the best monitoring bangs for your buck, since they generally correlate with an application bug and are typically triggered by a user action or background task.
+Application exceptions provide some of the best monitoring bangs for your buck since they generally correlate with an application bug and are typically triggered by a user action or background task.
 
 A bonus is that you get to impress users by proactively reaching out to them before they even complain about an error.
 
