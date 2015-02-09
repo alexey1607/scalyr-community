@@ -10,15 +10,17 @@ So let's change this.
 
 At Scalyr, we're a group of experienced operations engineers who - despite what you may think of the craft - don't love being yelled at by the sales department, and certainly don't love being woken up at 3 am by our own alerts.  We've learned a lot from our years on the front lines (both in tending to other peoples' servers and, more recently, Scalyr's own servers):  Monitoring is critical to your application's health, and effective monitoring is critical to your own.
 
-What do we mean by effective monitoring?  We mean structuring your monitoring and alerts in such a way that you're able to catch problems before they arise or, if you can't, identify and fix them as quickly and painlessly as possible.
+In this guide, we're going to explore exactly what we mean by "effective monitoring" and offer a framework in which to think about your own environments.  You'll learn to structure your monitoring and alerts in such a way that you're able to catch problems before they arise or, if you can't, identify and fix them as quickly and painlessly as possible.
 
 ## Challenges
 
 Three historical challenges to effective monitoring are a false sense of security, a lack of cohesive tools, and the wrong mindset.  These are related to one another. 
 
-The false sense of security looks like this:  "Pingdom will let me know if my site goes down.  I want to know if my site goes down.  So all I need is Pingdom!"  (And we're fans of Pingdom btw - they're a genuinely great and simple service:  Ping your site, green = up, red = down.)  But Pingdom alone won't keep you safe.  You'll only know about problems once they've spilled over and caused a crash.  And you'll miss other problems (say, for example, if your site stays up but hackers replace all of your images with pictures of tiny kittens playing tiny violins.)
+The false sense of security looks like this:  "I care if my site goes down.  A ping test will let me know if my site goes down, so all I need is a ping test!" (A ping test is a simple monitor that pings your site and alterts accordingly - green = up, red = down.) 
 
-Similarly, most hosting providers will give you some default graphs and alerts on your dashboard:  Basic traffic and CPU metrics, an email alert if the server fails, and maybe some raw log access.  And you'll be forgiven if you think "Ah ha - they've got me covered."  These defaults are great and useful.  But not enough!  If your web server instance runs out of memory, starts swapping to disk, and site performance drops to nil, you're likely to miss it.  And depending on the naggyness of your users, you could miss it for a while.
+But a ping test alone won't keep you safe.  You'll only know about problems once they've spilled over and caused a crash.  And you'll miss other problems (say, for example, if your site stays up but hackers replace all of your images with pictures of tiny kittens playing tiny violins.)
+
+Similarly, most hosting providers will give you some default graphs and alerts on your dashboard:  Basic traffic and CPU metrics, an email alert if the server fails, and maybe some raw log access.  And you'll be forgiven if you think "Ah ha - now they've got me covered."  These defaults are great and useful.  But not enough!  If your web server instance runs out of memory, starts swapping to disk, and site performance drops to nil, you're likely to miss it.  And depending on the naggyness of your users, you could miss it for a while.
 
 Even if you combine a ping monitor, your hosting provider's dashboards and alerts, and maybe some additional outside services - a log management service or an exception monitoring service - your tools (and mental monitoring model - say that three times fast) are now spread around.  What happens when they all start firing and sending you emails?
 
@@ -28,16 +30,16 @@ This leads to the third major challenge - and perhaps the most important:  The w
 
 We address these challenges by presenting to you our cohesive approach to monitoring.  This approach will give you the assurance that your bases are covered, won't spread you or your tools too thin, and will put you in a mindset of monitoring confidence and security.
 
-At its core, our philosophy on effective monitoring is as follows:
+At its core, our philosophy is as follows:
 
   1.  **Identify as many problems (and potential problems) as possible**.  The larger your monitoring surface, the better chance you have to spot issues that, left unchecked, could grow into bigger issues, and the lesser chance you'll miss those weird edge case problems.
   2.  **Identify problems (and potential problems) as early as possible**.  This is key - the sooner you know about something, the better chance you'll have to address it before it escalates.  Longer lead times are your friend. 
   3.  **Generate as few false alarms as possible**.  False alarms (aka false positives) can lead to "alert fatigue" - where you get so used to seeing a noisy alert that it starts to carry less psychological weight.  And this alert fatigue can - paradoxically - lead to more downtime if you accidentally disregard an actual event.  Do not, in other words, allow your monitoring system to cry wolf. 
   4.  **Do it all with as little work as possible.**  We are engineers, after all.
 
-We approach this philosophy as one would any good engineering problem - by having the right tools, by deconstructing the problem domain into a series of layers ("the monitoring stack"), and by intelligently deploying our tools across the stack.
+We apply this philosophy as one would approach any good engineering problem - by having the right tools, by deconstructing the problem domain into a series of layers ("the monitoring stack"), and by intelligently deploying our tools across the stack.
 
-Once we've done this, the heart of our strategy comes into play:
+That approach results in these concrete monitoring steps:
 
   1.  **Monitor Potential Bad Things** (Alert before they happen);
   2.  **Monitor Actual Bad Things** (Alert when they do happen, which is, unfortunately, inevitable);
@@ -50,23 +52,23 @@ Let's dive in...
 
 Our core components are alerts, graphs, and logs.  These work together to help you identify and troubleshoot issues easily and quickly.
 
-  - **Alerts** notify you when things change beyond specified thresholds.  Good, bad, or otherwise, an alert is the beginning of an analysis sequence that lets you know it's time to dig deeper into your graphs and logs.  Setting the proper threshold is key to successful alerting (we address this in depth in our companion guide, appropriately named [How To Set Alert Thresholds]().)  Used properly, alerts can warn you well in advance of a disaster and allow you to fix problems on a convenient schedule and without affecting users.
+  - **Alerts** notify you when things change beyond specified thresholds.  Good, bad, or otherwise, an alert is the beginning of an analysis sequence that lets you know it's time to dig deeper into your graphs and logs.  Setting the proper threshold is key to successful alerting (we address this in depth in our companion guide, appropriately named [How To Set Alerts](how-to-set-alerts.md).)  Used properly, alerts can warn you well in advance of a disaster and enable you to fix problems on a convenient schedule and without affecting users.
 
-  - **Graphs** are a visual representation of your data.  Graphs help you see trends that might not be obvious when the data is raw.  We humans have remarkably good visual-pattern-recognition systems, and graphs enable us to identify outlying data quickly.  They also look super cool on a huge flatscreen TV dashboard mounted in the middle of your office.  
+  - **Graphs** are the visual representations of your data.  Graphs help you see trends that might not be obvious in raw form.  We humans have remarkably good visual-pattern-recognition systems, and graphs enable us to identify anomalous data quickly.  They also look super cool on a huge flatscreen TV dashboard mounted in the middle of your office.  
 
-  - **Logs** store your raw data.  A log is traditionally a file (but can also be a database table or document set) that records event data from the operating system or application in a linear time series.  Whereas graphs summarize (and, potentially, average away certain specifics), logs will always have the finest level of detail.
+  - **Logs** hold your raw data.  They're traditionally stored as files (but can also live directly in database tables.)  They are the source records of event data from the operating system or application and are most commonly a linear time series.  Whereas graphs summarize (and, potentially, average away certain specifics), logs will always have the finest level of detail and be the "base source of truth."
 
 ## <a name="layers"></a> Where to Monitor
 
-To deploy our tools, let's first break our application into a multi-layer stack.  At the bottom is the application itself and each layer up represents the services and components that support the preceding layer (We'd make an onion / ogre joke here but c'mon - this is a serious technical article.)
+To best deploy our tools, let's first break our application into a multi-layer stack.  At the bottom is the application itself and each layer up represents the services and components that support the preceding layer (We'd make an onion / ogre joke here but c'mon - this is a serious technical article.)
 
-By intelligently monitoring the right metrics in each layer, we'll get a complete view of the application and maximum monitoring coverage.
+By intelligently monitoring the right metrics in each layer, we'll get a complete view of the application and maximize monitoring coverage.
 
-In a production environment, there will likely be multiple applications we want to monitor (i.e. the web server, the application server, and the database server), so plan to apply this full-stack approach to **each** application in your deployment.  There will be some overlap (i.e. your web server process and application server process may share a physical machine), so don't feel the need to follow this too religiously.  Consolidate as you move up and higher layers encapsulate multiple lower-level services.
+In a production environment, there will likely be multiple applications we want to monitor (i.e. the web server, the application server, and the database server), so plan to apply this full-stack approach to **each** application in your deployment.  There will be some overlap (i.e. your web server process and application server process may share a physical machine), so don't feel the need to follow this too religiously.  Consolidate as you move up the stack and higher layers encapsulate more lower-level services.
 
 ### Layer 0:  The Application
 
-The metrics we care about here are those generated from, and specific to, the application itself.  Examples include a web server's active connections, an application server's worker health, or a database row count.  We're specifically **not** looking at process- or system-level metrics like CPU usage or network bandwidth.  Those come higher up in the stack.  
+The first layer of metrics we care about are those generated from, and specific to, the application itself.  Examples include a web server's active connections, an application server's worker health, or a database row count.  We're specifically **not** looking at process- or system-level metrics like CPU usage or network bandwidth.  Those come higher up in the stack.  
 
 ### Layer 1:  The Process
 
@@ -76,13 +78,13 @@ The metrics we're interested in here are those that report on process state ("cr
 
 ### Layer 2:  The Server
 
-One way of looking at a server is simple as a container (either physical or virtual) for your processes.  At this layer, we care about the health and resource usage of the overall system.  This becomes particularly important if that system hosts multiple applications (either yours or other users'), since their behavior can have an impact on your target application's performance.
+One way of looking at a server is simply as a container (either physical or virtual) for your processes.  At this layer, we care about the health and resource usage of the overall system.  This becomes particularly important if that system hosts multiple applications (either yours or other users'), since their behavior can have an impact on your target application's performance.
 
 Server metrics include system-wide resource usage data (CPU, memory, disk and network usage), summary metrics (total # of processes, load average, socket state and availability) and hardware state and health (disk health, memory health, physical-port access and use, CPU temperature, and fan speed.)
 
 ### Layer 3:  The Hosting Provider
 
-Your servers live within your hosting provider.  Depending on your provider, available metrics can range from broad ("we're up" or "we're down") to specific latency and availability by physical datacenter and availability zone.  
+Your servers live within your hosting provider.  Depending on the provider, available metrics can range from broad ("we're up" or "we're down") to latency and availability by physical datacenter and availability zone.  
 
 Also included in this layer are the associated hosted services that support your application's existence.  These may include hosted databases, caches, and other "cloud" services your application either implicitly or explicitly depends on.
 
@@ -92,9 +94,9 @@ When higher-level services fail, many lower-level alerts will trigger (and loudl
 
 ### Bonus Layer!  Layer 4:  External Dependencies
 
-Very often overlooked but absolutely critical - remember those external dependencies!  Several are common to nearly all production web services, and failures here can lead to unexpected (and painfully long) downtime.
+Very often overlooked but absolutely critical.  Several are common to nearly all production web services, and failures here can lead to unexpected (and painfully long) downtime.
 
-These include:
+These dependencies include:
 
   * **Domain Names** - DNS renewal dates can creep up and cause severe headaches if forgotten ([just ask Microsoft](http://news.cnet.com/2100-1023-234907.html)).  Mark your calendars!
   * **SSL certificates** - Monitor both expiration dates as well as other deadlines (such as the [Google SHA-1 sunset date](http://googleonlinesecurity.blogspot.com/2014/09/gradually-sunsetting-sha-1.html)).
@@ -121,9 +123,9 @@ These failures rarely come out of nowhere. The effect may appear very suddenly, 
 
 **Action Items for Monitoring Potential Bad Things**
 
-  * Identify the resources in each layer of your stack that can fill-up / overflow.
-  * Understand the tipping point of each resource.  A "full" CPU might not be 100% - a process could show meaningful degradation at a level below that. 
-  * Understand the consequences of an overflow.  We can't overstate how many hours we've spent tracking down a mysterious process crash to discover a full disk as the culprit.
+  * Identify the resources in each layer of your stack that can fill-up / overflow;
+  * Understand the tipping point of each resource.  A "full" CPU might not be 100% - a process could show meaningful degradation at a level below that;
+  * Understand the consequences of an overflow.  We can't overstate how many hours we've spent tracking down a mysterious process crash to discover a full disk as the culprit; and
   * Set alerts that will fire before the tipping point is reached.  For instance, the library we use internally for rate limiting emits a log message whenever a limiter reaches 70% of the cutoff threshold.
 
 Any form of storage can fill up. Monitor unused memory on each server, free space in each garbage-collected heap, available space on each disk volume, and slack in each fixed-size buffer, queue, or storage pool.
@@ -136,11 +138,9 @@ Lock contention can also cause a tipping point on an otherwise lightly loaded se
 
 ### 2. Monitor Actual Bad Things 
 
-This is what we traditionally think of when we monitoring and setup alerts - "let me know when it breaks."
+Despite our best efforts of prevention, things will break.  
 
-We know, we know - nobody likes to admit that despite our best efforts, bad things will actually happen and things will actually break.  
-
-When they do happen, your best defense is to be prepared, respond quickly, gather as much data about the problem as possible, identify the cause as quickly as possible, and fix it.  
+When they, your best defense is to be prepared, respond quickly, gather as much data about the problem as possible, identify the cause as quickly as possible, and fix it.  
 
 (In some cases, of course, that remedy is to wait for an external dependency to come back online, but there are still ways to mitigate problems with backup providers and failover rules.)
 
@@ -148,10 +148,10 @@ Your toolset should enable quick drill down from alert to graph to log to fix.  
 
 **Action Items for Monitoring Actual Bad Things**
 
-  * Identify the resources in each layer of your stack that can stop functioning correctly
-  * Understand the effects that each potential failure can have on the rest of the system 
-  * Make sure both monitors and alerts are set to trigger when those resources fail
-  * Have tools in place to move quickly from alert to graph to log (as necessary) in order to identify the root cause of a failure
+  * Identify the resources in each layer of your stack that can stop functioning correctly;
+  * Understand the effects that each potential failure can have on the rest of the system; 
+  * Make sure both monitors and alerts are set to trigger when those resources fail, and that those triggers reach you with an appropriate level of urgency; and
+  * Have tools in place to move quickly from alert to graph to log (as necessary) in order to identify the root cause of a failure.
 
 It's also important to ensure thorough alert coverage in both breadth and depth.  In [a famous incident in 2012](http://www.paritynews.com/2012/10/13/432/oracle-website-down-says-hello-world), Oracle.com's home page read only "Hello, World" for over an hour.  Presumably a monitor that tested for a 200 OK response from the home page would not have triggered an alert in that failure scenario, so it's important to understand the scope of potential failures and cover them accordingly.
 
@@ -179,8 +179,8 @@ The specifics will depend on your application, but you might look for a dropoff 
 
 **Action Items for Monitoring Good Things**
 
-  * Identify the key user actions and system behaviors that indicate a "green" system status
-  * Set alerts to notify you when these values fall out of line
+  * Identify the key user actions and system behaviors that indicate a "green" system status; and
+  * Set alerts to notify you when these values fall out of line.
 
 It’s often best to look for a sudden drop, rather than comparing to a fixed threshold. You might alert if the rate of events over the last 5 minutes is 30% lower than the average over the preceding half hour. This avoids false positives or negatives due to normal variations in usage.
 
@@ -190,13 +190,13 @@ Monitoring is an iterative process - you're not expected to get it all right the
 
 After each incident, ask yourself how you could have seen it coming.  Sometimes, the hints are already there in your log and you just need to add an alert.  Other times, you might need to make a code change to log additional information.
 
-Start with broad, aggressive alerts and iteratively narrow them to eliminate false alarms.
+Start with tight thresholds and broad, aggressive alerts and iteratively narrow them to eliminate false alarms.
 
 Pay particular attention to noisy alerts (false positives) and work on quieting them.  Noisy alerts play on a feature (or bug, depending on your perspective) in the human brain that allows us to grow tolerant of repetition.
 
 If a particularly noisy alert keeps at it, you'll start to assign less value to it (and other alerts in general), and your reaction will be muted.
 
-In the early, pre-tuned stages of a new monitoring setup, it's important to pay close attention to your alerts, graphs and logs (that is to say, even closer attention than you otherwise might).  You'll want to keep an eye out for missed issues, noisy alerts, and other areas for refinement.  Watch, iterate, watch some more, and in relatively short order you'll have a setup in which you have total confidence.
+In the early, pre-tuned stages of a new monitoring setup, it's important to pay close attention to your alerts, graphs and logs (that is to say, even closer attention than you otherwise might.)  You'll want to keep an eye out for missed issues, noisy alerts, and other areas for refinement.  Watch, iterate, watch some more, and in relatively short order you'll have a setup in which you have total confidence.
 
 ## Summary
 
