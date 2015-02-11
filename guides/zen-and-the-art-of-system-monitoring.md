@@ -1,6 +1,6 @@
-# Zen and the Art of Server Monitoring
+# Zen and the Art of System Monitoring
 
-Server and application monitoring is an essential but often-overlooked part of production software deployment - it's as critical as security, but rarely given the same attention.  
+System monitoring is an essential but often-overlooked part of production software deployment - it's as critical as security, but rarely given the same attention.  
 
 By overlooked, we don't necessarily mean ignored - even novice operations folks know that monitoring is needed, and most environments do have some basic alarms in place (even if it's the sales department screaming "The website's down!" - effective, but perhaps not optimal.)
 
@@ -188,6 +188,10 @@ Pay particular attention to noisy alerts (false positives) and work on quieting 
 If a particularly noisy alert keeps at it, you'll start to assign less value to it (and other alerts in general), and your reaction will be muted.
 
 In the early, pre-tuned stages of a new monitoring setup, it's important to pay close attention to your alerts, graphs and logs (that is to say, even closer attention than you otherwise might.)  You'll want to keep an eye out for missed issues, noisy alerts, and other areas for refinement.  Watch, iterate, watch some more, and in relatively short order you'll have a setup in which you have total confidence.
+
+## Further Reading
+
+If you found this guide useful, be sure to look at some of the other material in the [Scalyr Community](http://www.scalyr.com/community).  We're building a library of specific instructions for applying these ideas to a wide variety of applictations and systems.
 
 ## Summary
 

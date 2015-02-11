@@ -1,4 +1,4 @@
-# How to Monitor Nginx:  The Complete Guide
+# How to Monitor Nginx:  The Essential Guide
 
 Nginx is an increasingly popular open-source HTTP and reverse proxy server that's known for its high concurrency, high performance, and low memory usage.  It's become the second most popular public-facing web server (as of December 2014) among the top 1M busiest sites online, and it's pretty awesome.
 
@@ -18,7 +18,7 @@ At Scalyr, our approach to monitoring is based on years of frontline operational
 
 This guide can be read as-is and is designed to provide quick, actionable recommendations.
 
-If you want to dig deeper, take a spin through [Zen and the Art of Server Monitoring](zen-and-the-art-of-server-monitoring.md).  It will give you a systematic framework for thinking about system monitoring.
+If you want to dig deeper, take a spin through [Zen and the Art of System Monitoring](zen-and-the-art-of-system-monitoring.md).  It will give you a systematic framework for thinking about system monitoring.
 
 Next, read [How to Set Alerts](how-to-set-alerts.md) to get a deeper understanding of how to build intelligent alerts and set notification thresholds properly.  The primary goal here is to minimize false alarms without missing real incidents.
 
@@ -26,7 +26,7 @@ Finally, take a look at our [In-Depth Guide to Nginx Metrics](an-in-depth-guide-
 
 ## The 14 Essential Nginx Metrics to Monitor
 
-We recommend a [layered approach](zen-and-the-art-of-server-monitoring.md#layers) to monitoring, starting from the application layer and moving down through process, server, hosting provider, external services, and user activity.  By monitoring the metrics listed here, you'll get good coverage for both active and incipient problems with your Nginx site.
+We recommend a [layered approach](zen-and-the-art-of-system-monitoring.md#layers) to monitoring, starting from the application layer and moving down through process, server, hosting provider, external services, and user activity.  By monitoring the metrics listed here, you'll get good coverage for both active and incipient problems with your Nginx site.
 
 ### 1.  Requests Per Second (RPS)
 

@@ -1,10 +1,10 @@
 # An In-Depth Guide to Nginx Metrics
 
-In our guides [Zen and the Art of Server Monitoring](zen-and-the-art-of-server-monitoring.md) and [How to Monitor Nginx: The Complete Guide](how-to-monitor-nginx-the-complete-guide.md), we cover our monitoring philosophy and recommend a specific set of metrics to monitor and alerts to set for maximum Nginx happiness.
+In our guides [Zen and the Art of System Monitoring](zen-and-the-art-of-system-monitoring.md) and [How to Monitor Nginx: The Essential Guide](how-to-monitor-nginx-the-essential-guide.md), we cover our monitoring philosophy and recommend a specific set of metrics to monitor and alerts to set for maximum Nginx happiness.
 
 Here, we'd like to dive into the nitty-gritty of those essential Nginx metrics and discuss more about what exactly they mean and why they're important.  This will also serve as a primer for those of you who want a bit more familiarity with some of the (perhaps esoteric) terminology associated with web servers.
 
-You can think of this as a companion to both the [official Nginx documentation](http://nginx.org/en/docs/) and an appendix to our [Nginx monitoring guide](how-to-monitor-nginx-the-complete-guide.md).
+You can think of this as a companion to both the [official Nginx documentation](http://nginx.org/en/docs/) and an appendix to our [Nginx monitoring guide](how-to-monitor-nginx-the-essential-guide.md).
 
 For now, this guide covers only the metrics available via [`ngx_http_stub_status_module`](http://nginx.org/en/docs/http/ngx_http_stub_status_module.html) and variables associated with the F/OSS version of Nginx.  More comprehensive metrics are available via [`ngx_http_status_module`](http://nginx.org/en/docs/http/ngx_http_status_module.html), which is included with the commercial version (Nginx Plus).  A later revision of this guide will be expanded to include those Nginx Plus metrics.
 

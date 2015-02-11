@@ -1,6 +1,6 @@
 # How to Set Alerts
 
-In our guide [Zen and the Art of Server Monitoring](zen-and-the-art-of-server-monitoring.md), we cover our monitoring and alerting philosophy and discuss practical steps for putting that philosophy into practice.  The three main tools for doing so are logs, graphs, and alerts.
+In our guide [Zen and the Art of System Monitoring](zen-and-the-art-of-system-monitoring.md), we cover our monitoring and alerting philosophy and discuss practical steps for putting that philosophy into practice.  The three main tools for doing so are logs, graphs, and alerts.
 
 In this guide, we're going to take a closer look at alerts, and, more specifically, how alerts are constructed, when they should trigger, and how they should notify you.
 
