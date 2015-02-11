@@ -20,7 +20,7 @@ This guide can be read as-is and is designed to provide quick, actionable recomm
 
 If you want to dig deeper, take a spin through [Zen and the Art of Server Monitoring](zen-and-the-art-of-server-monitoring.md).  It will give you a systematic framework for thinking about system monitoring.
 
-Next, read [How to Set Alerts](how-to-set-alerts.md) to get a deeper understanding of how to build intelligent alerts and set notification thresholds properly.  The primary goal here is to minimize false alarms, without missing real incidents.
+Next, read [How to Set Alerts](how-to-set-alerts.md) to get a deeper understanding of how to build intelligent alerts and set notification thresholds properly.  The primary goal here is to minimize false alarms without missing real incidents.
 
 Finally, take a look at our [In-Depth Guide to Nginx Metrics](an-in-depth-guide-to-nginx-metrics.md).  Think of that as an addendum / appendix to this guide.  It examines the complete list of available Nginx metrics, what exactly they measure, and what exactly they mean.
 
@@ -44,7 +44,7 @@ Response time measures how quickly requests are being handled - one of the prima
 
 ### 3.  Active Connections
 
-There is a (configurable) hard limit on the total number of [connections](an-in-depth-guide-to-nginx-metrics.md#connections) that Nginx can handle.  It's important to know that limit, and alert before the limit is reached.
+There is a (configurable) hard limit on the total number of [connections](an-in-depth-guide-to-nginx-metrics.md#connections) that Nginx can handle.  It's important to know that limit and alert before the limit is reached.
 
 The limit is equal to the # of [`worker_connections`](http://nginx.org/en/docs/ngx_core_module.html#worker_connections) * [`worker_processes`](http://nginx.org/en/docs/ngx_core_module.html#worker_processes) in your Nginx configuration.  Once the limit is reached, connections will be dropped and users will see errors.  Note that this limit includes all connections (from clients and to upstream servers).
 
@@ -59,7 +59,7 @@ Nginx logs the [HTTP response code](http://en.wikipedia.org/wiki/List_of_HTTP_st
 
   * **Monitor** the Nginx access logs for the relative distribution of 2xx/3xx/4xx/5xx response codes.  Use this distribution to determine the typical fraction of 4xx and 5xx responses served by your site.
   * **Set an alert** if the fraction of 5xx responses rises above a fixed threshold.  The appropriate threshold is very depending on the nature of your site, so you'll have to look at historical data to set an appropriate threshold.  Use the techniques in [How to Set Alerts](how-to-set-alerts.md); in particular: start with a relatively tight threshold, adjust the threshold if there are too many false alarms, and consider adding a grace period to ignore brief spikes.
-  * **Set an alert** if the fraction of 4xx responses rises above a fixed threshold.  In theory, a 4xx response is the user's fault, not the fault of your server.  However, if users are suddenly requesting missing pages, there's a good chance it's due to something you've done, or at least something you'd like to know about.
+  * **Set an alert** if the fraction of 4xx responses rises above a fixed threshold.  In theory, a 4xx response is the user's fault, not the fault of your server.  However, if users are suddenly requesting missing pages, there's a good chance it's due to something you've done (or at least something you'd like to know about.)
 
 ### 5.  Process Open File Handles
 
@@ -145,9 +145,9 @@ We recommend monitoring static pages (that only Nginx responds to) as well as dy
   * **Monitor** the request rate for key pages on your site, by looking for those pages in the Nginx request log.
   * **Set an alert** if request volume drops significantly.  You'll probably want to use a running average to smooth out spikes in user activity; the smaller your site, the more volatile traffic will be.  As a starting point, you might alert if the average request rate over the last 10 minutes, is 40% lower than the average over the preceeding 10 minutes.
 
-## A Note on Higher-Level Alerts & Duplication
+## A Note on Lower-Level Alerts & Duplication
 
-One of the side effects of our layered approach is that, when there is a problem at a lower level of the system, alerts may trigger at multiple levels.  For example, if your hosting provider fails, that will trigger alerts at the system, process, and application level.  But by monitoring every level, you'll be able to more quickly home in on problems.
+One of the side effects of our layered approach is that, when there is a problem at a lower level of the system, alerts may trigger at multiple levels.  For example, if your hosting provider fails, that will trigger alerts at the system, process, and application level.  But by monitoring every level, you'll be able to more quickly hone in on problems.
 
 ## Digging in Deeper
 

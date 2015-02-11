@@ -24,25 +24,17 @@ It's worth starting with that fact that there is no definitive _initial_ prescri
 
 During the tuning process, your goal is to find a balance between "noisy" and "quiet" alerts.
 
-There's an explicit tradeoff here -- tighter trigger thresholds will make for noisier alerts. They'll catch more problems, but at the cost of false alarms.  Looser thresholds will make for quieter alerts but at the increased risk of missing real incidents.  A balance is needed.
+There's an explicit tradeoff here -- tighter trigger thresholds will make for noisier alerts. They'll catch more problems, but at the cost of false alarms.  Looser thresholds will make for quieter alerts, but at the increased risk of missing real incidents.  A balance is needed.
 
 (A good analogy here for anyone who's ever played with a shortwave radio:  Radios have a 'squelch' control that keeps you from hearing background static until a loud signal comes through.  If your squelch is too high, you won't hear any static but you may miss some weak signals.  If your squelch is too low, you'll hear all the signals but also lots of annoying static.)
 
 Noisy alerts open you up to "alert fatigue" -- where you become so used to seeing a particular alert that - often unconsciously - you start to take it less seriously.  This can have the paradoxical effect of making the alert _less_ effective - the DevOps version of crying wolf.
 
-Hopefully, for each alert, you can find a balance point where false alarms are rare, but you're still confident that real
-incidents won't be missed. When you first set an alert, we recommend erring on the side of a tighter threshold. If you get
-false alarms, raise the threshold before alert fatigue can set in. The converse strategy -- starting with a loose threshold --
-can lead to the "no one noticed the server was down" problem, which is worse than "this new alert is a bit annoying" problem.
+For each alert, your ideal balance point is where false alarms are rare but you're still confident that real incidents won't be missed.  When you first set an alert, we recommend erring on the side of a tighter threshold.  If you get false alarms, raise the threshold before alert fatigue can set in.  The converse strategy -- starting with a loose threshold -- can lead to the "no one noticed the server was down" problem, which is worse than "this new alert is a bit annoying" problem.
 
-A new, untested alert should usually not be able to wake you up at 3:00 AM. Start with more passive forms of notification,
-such as an email.  Once an alert has been in the field for a few weeks without generating false alarms, it can "graduate"
-to more urgent forms of notification, such as an SMS message or phone call.  (See the section "How an Alert Notifies You".)
+A new, untested alert should usually not be able to wake you up at 3:00 AM. Start with more passive forms of notification (such as an email.)  Once an alert has been in the field for a few weeks without generating false alarms, it can "graduate" to more urgent forms of notification, such as an SMS message or phone call.  (See the section [How an Alert Notifies You](#notification).)
 
-If you're not able to find a reasonable balance point, you should try a different approach to the alert. Use a different
-kind of threshold, add a grace period, or base your alert on a different metric.  You'll learn about these things as you
-read this guide.
-
+If you're not able to find a reasonable balance point, you should try a different approach to the alert. Use a different kind of threshold, add a grace period, or base your alert on a different metric.  You'll learn about these things as you read this guide.
 
 ## How an Alert is Structured
 
@@ -72,14 +64,11 @@ There are three types of thresholds you can apply to your alerts.  Most monitori
 
 A fixed threshold is used to trigger an alert based on the comparison of a metric to a fixed numeric value.  The metric may be the result of an average or a more complex calcluation, but the threshold it's being compared to is fixed.
 
-Fixed thresholds make sense when you're dealing with a metric that has a hard, well-characterized limit.  For instance,
-CPU usage can't exceed 100%, free disk space can't go below 0, and open files can't go above the operating system's
-limit on file descriptors. When monitoring this type of metric, it's easy to set a fixed threshold.
+Fixed thresholds make sense when you're dealing with a metric that has a hard, well-characterized limit.  For instance, CPU usage can't exceed 100%, free disk space can't go below 0, and open files can't go above the operating system's limit on file descriptors. When monitoring this type of metric, it's easy to set a fixed threshold.
 
 ### 2.  State-based Threshold
 
-Some metrics have discrete values that identify changes in system state.  For metrics like this, it usually makes sense
-to alert when the metric changes from one particular value to another. For example:
+Some metrics have discrete values that identify changes in system state.  For metrics like this, it usually makes sense to alert when the metric changes from one particular value to another. For example:
 
     Alert if Process Status changes from "Running" to "Stopped"  
 

@@ -16,13 +16,13 @@ Metrics are available from two sources:
 
   *  **Nginx Status Modules** - The most direct way to get the goods.  Data is available either through polling a configurable web page (such as /status) or via embedded variables that can be output to log files.  Note:  Polling is the preferred method of access, as Nginx does not provide embedded variables for all of the status module.
 
-  *  **Log Files** - Nginx, like most web servers, maintains an "access log" with a record of each request handled. Additional metrics can be synthesized from the access log, if your monitoring tools are able to analyze log data. You can also use the [`log_format`](http://nginx.org/en/docs/http/ngx_http_log_module.html#log_format) directive to instruct Nginx to include additional information in each log record, allowing more metrics to be obtained.
+  *  **Log Files** - Nginx, like most web servers, maintains an "access log" with a record of each request handled.  Additional metrics can be synthesized from the access log if your monitoring tools are able to analyze log data. You can use the [`log_format`](http://nginx.org/en/docs/http/ngx_http_log_module.html#log_format) directive to instruct Nginx to include additional information (obtained from Nginx variables) in each log record.
 
 ## <a name="connections"></a> It's All About The Connections 
 
 The status module metrics are mostly about **connections**, so it's worth diving into some depth about what those are exactly.
 
-An Nginx server generally plays two roles.  Its primary role, as the name "server" would imply, is to serve content (web pages, images, video, or raw API data) to clients.  Clients historically have been web browsers, but now include native mobile apps, as well as other servers consuming your APIs.
+An Nginx server generally plays two roles.  Its primary role, as the name "server" would imply, is to serve content (web pages, images, video, or raw API data) to clients.  Clients historically have been web browsers, but now include native mobile apps and other servers that consume your APIs.
 
 Nginx's secondary role is as middleman, or proxy between clients and "upstream servers".  Upstream servers do more of the heavy lifting for a given request.  They run application servers (like Unicorn for Ruby on Rails, or Tomcat for Java) and generally handle the "dynamic" part of dynamic web pages.
 

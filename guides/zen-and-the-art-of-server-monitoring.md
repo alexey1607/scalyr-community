@@ -10,13 +10,11 @@ So let's change this.
 
 At Scalyr, we're a group of experienced operations engineers who - despite what you may think of the craft - don't love being yelled at by the sales department, and certainly don't love being woken up at 3 am by our own alerts.  We've learned a lot from our years on the front lines: Monitoring is critical to your application's health, and effective monitoring is critical to your own.
 
-In this guide, we're going to explore exactly what we mean by "effective monitoring", and offer a practical framework which you can use to structure your monitoring and alerts. You'll learn how to:
+In this guide, we're going to explore exactly what we mean by "effective monitoring" and offer a practical framework which you can use to structure your monitoring and alerts. You'll learn how to:
 
- - Minimize production issues,
-
- - Avoid false alarms,
-
- - And do all this with as little effort as possible.
+ * Minimize production issues;
+ * Avoid false alarms; 
+ * And do all this with as little effort as possible.
 
 ## Challenges
 
@@ -24,7 +22,7 @@ Three historical challenges to effective monitoring are a false sense of securit
 
 The false sense of security looks like this:  "I care if my site goes down.  A ping test will let me know if my site goes down, so all I need is a ping test!" (A ping test is a simple monitor that pings your site and alerts if it doesn't respond.)
 
-But a ping test alone won't keep you safe.  You'll only know about problems once they've spilled over and caused a crash.  And you'll miss subtler problems (say, for example, if your site stays up but hackers replace all of your images with pictures of tiny kittens playing tiny violins.)
+But a ping test alone won't keep you safe.  You'll only know about problems once they've spilled over and caused a crash.  And you'll miss subtler problems (say, for example, your site stays up but hackers replace all of your images with pictures of tiny kittens playing tiny violins.)
 
 Similarly, most hosting providers will give you some default graphs and alerts on your dashboard:  Basic traffic and CPU metrics, an email alert if the server fails, and maybe some raw log access.  And you'll be forgiven if you think "Ah ha - now they've got me covered."  These defaults are great and useful.  But not enough!  If your web server instance runs out of memory, starts swapping to disk, and site performance drops to nil, you might not notice for a long time.
 
@@ -102,8 +100,7 @@ When lower-level services fail, many higher-level alerts will trigger (and loudl
 Very often overlooked but absolutely critical.  Several are common to nearly all production web services, and failures here can lead to unexpected (and painfully long) downtime. Common dependencies:
 
   * **Domain Names** - DNS renewal dates can creep up and cause severe headaches if forgotten ([just ask Microsoft](http://news.cnet.com/2100-1023-234907.html)).  Mark your calendars!
-  * **SSL certificates** - these also expire, with consequences almost as severe as DNS, and certificate providers are not
-  as proactive with expiration warnings as DNS providers are.
+  * **SSL certificates** - these also expire, with consequences almost as severe as DNS, and certificate providers are not as proactive with expiration warnings as DNS providers are.
 
 ### Layer 5:  The User
 
@@ -144,8 +141,7 @@ Lock contention can also cause a tipping point on an otherwise lightly loaded se
 
 Despite our best efforts, things will break.  
 
-When they do, your best defense is to be prepared and respond quickly.  To respond quickly, you need to know about the
-problem as soon as it occurs.
+When they do, your best defense is to be prepared and respond quickly.  To respond quickly, you need to know about the problem as soon as it occurs.
 
 **Action Items for Monitoring Actual Bad Things**
 
