@@ -6,7 +6,7 @@ In this guide, we're going to take a closer look at alerts, and, more specifical
 
 There's more to alerting than, well, just setting an alert.  In fact, there's an unexpected amount of complexity when you peek below the surface, so we're going to do our best to keep things as straightforward as possible while covering the topic in-depth.
 
-We'll prescribe a specific set of techniques that will help you build alerts intelligently, minimize false alarms and missed incidents and, ultimately, let you sleep better at night. (Both figuratively and literally - nobody wants the 3am wake-up call unless things are _really_ borked.)
+We'll prescribe a specific set of best practices that will help you build alerts intelligently, minimize false alarms and missed incidents and, ultimately, let you sleep better at night. (Both figuratively and literally - nobody wants the 3am wake-up call unless things are _really_ borked.)
 
 Before we dive into recipies for building good alerts, it's important to cover some background.  In this guide, we'll discuss:
 
@@ -198,6 +198,6 @@ If an alert is too noisy, you can relax the threshold, add a grace period, or tr
 
 If you've found that you're missing important events, look for places to tighten your threshold or perhaps add an additional alert.
 
-And finally, we hope you've found this reference valuable, enlightening, and perhaps even fun...(ok, ok, we won't push it.)
+And finally, we hope you've found this best practices reference valuable, enlightening, and perhaps even fun...(ok, ok, we won't push it.)
 
 Good luck and happy alerting!

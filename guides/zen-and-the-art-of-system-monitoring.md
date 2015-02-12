@@ -10,11 +10,11 @@ So let's change this.
 
 At Scalyr, we're a group of experienced operations engineers who - despite what you may think of the craft - don't love being yelled at by the sales department, and certainly don't love being woken up at 3 am by our own alerts.  We've learned a lot from our years on the front lines: Monitoring is critical to your application's health, and effective monitoring is critical to your own.
 
-In this guide, we're going to explore exactly what we mean by "effective monitoring" and offer a practical framework which you can use to structure your monitoring and alerts. You'll learn how to:
+In this guide, we're going to explore exactly what we mean by "effective monitoring" and offer a practical framework of best practices that you can use to structure your monitoring and alerts. You'll learn how to:
 
  * Minimize production issues;
- * Avoid false alarms; 
- * And do all this with as little effort as possible.
+ * Avoid false alarms; and
+ * Do all this with as little effort as possible.
 
 ## Challenges
 
@@ -191,7 +191,7 @@ In the early, pre-tuned stages of a new monitoring setup, it's important to pay 
 
 ## Further Reading
 
-If you found this guide useful, be sure to look at some of the other material in the [Scalyr Community](http://www.scalyr.com/community).  We're building a library of specific instructions for applying these ideas to a wide variety of applictations and systems.
+If you found this guide useful, be sure to look at some of the other material on best practices in the [Scalyr Community](http://www.scalyr.com/community).  We're building a library of specific instructions for applying these ideas to a wide variety of applictations and systems.
 
 ## Summary
 

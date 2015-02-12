@@ -4,7 +4,7 @@ Nginx is an increasingly popular open-source HTTP and reverse proxy server that'
 
 But, like any long-running software (or a small child), it can get into trouble if left completely unattended.
 
-This guide will take you through a series of recommendations for monitoring a production Nginx deployment.  It will make no recommendations as to how to monitor a small child.
+This guide will take you through a series of recommendations and best practices for monitoring a production Nginx deployment.  It will make no recommendations as to how to monitor a small child.
 
 While Nginx's open source variant (Nginx F/OSS, or "plain 'ol Nginx") is the most popular, a commercial version (Nginx Plus) is also available and offers load balancing, session persistence, advanced management, and finer-grained monitoring metrics.  This guide uses "Nginx" in the universal sense and refers to both versions.  The metrics discussed in this guide are also available in both versions.
 
@@ -16,7 +16,7 @@ At Scalyr, our approach to monitoring is based on years of frontline operational
 
 ## Background Material
 
-This guide can be read as-is and is designed to provide quick, actionable recommendations.
+This guide can be read as-is and is designed to provide quick, actionable recommendations and best practices.
 
 If you want to dig deeper, take a spin through [Zen and the Art of System Monitoring](zen-and-the-art-of-system-monitoring.md).  It will give you a systematic framework for thinking about system monitoring.
 
