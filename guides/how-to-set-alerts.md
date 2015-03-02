@@ -198,6 +198,8 @@ If an alert is too noisy, you can relax the threshold, add a grace period, or tr
 
 If you've found that you're missing important events, look for places to tighten your threshold or perhaps add an additional alert.
 
-And finally, we hope you've found this best practices reference valuable, enlightening, and perhaps even fun...(ok, ok, we won't push it.)
+We hope you've found this best practices reference valuable, enlightening, and perhaps even fun...(ok, ok, we won't push it.)
 
 Good luck and happy alerting!
+
+And finally - we'll leave you with some questions:  How do you set alert thresholds for your own production systems?  Are there ways framing the problem that we haven't considered?  Let us know in the comments!

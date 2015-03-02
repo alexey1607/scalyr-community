@@ -195,6 +195,6 @@ If you found this guide useful, be sure to look at some of the other material on
 
 ## Summary
 
-Properly monitoring your systems and setting up thorough alert coverage requires effort.  But with the right tools, a good understanding of your application stack, and a broad approach that covers problems before, during and after they occur, we expect you'll be monitoring very effectively...
+Properly monitoring your systems and setting up thorough alert coverage requires effort.  But with the right tools, a good understanding of your application stack, and a broad approach that covers problems before, during and after they occur, we expect you'll be monitoring very effectively...and sleeping very well.
 
-...and sleeping very well.
+Are there any monitoring techniques that we've left out here?  How do you think about the monitoring of your own production systems?  Let us know in the comments!
