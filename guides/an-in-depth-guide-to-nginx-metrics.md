@@ -16,7 +16,7 @@ Metrics are available from two sources:
 
   *  **Nginx Status Modules** - The most direct way to get the goods.  Data is available either through polling a configurable web page (such as /status) or via embedded variables that can be output to log files.  Note:  Polling is the preferred method of access, as Nginx does not provide embedded variables for all of the status module.
 
-  *  **Log Files** - Nginx, like most web servers, maintains an "access log" with a record of each request handled.  Additional metrics can be synthesized from the access log if your monitoring tools are able to analyze log data. You can use the [`log_format`](http://nginx.org/en/docs/http/ngx_http_log_module.html#log_format) directive to instruct Nginx to include additional information (obtained from Nginx variables) in each log record.
+  *  **Log Files** - Nginx, like most web servers, maintains an "access log" with a record of each request handled.  Additional metrics can be synthesized from the access log if your monitoring tools are able to analyze log data. You can use the [`log_format`](http://nginx.org/en/docs/http/ngx_http_log_module.html#log_format) directive to instruct Nginx to include [variable values](#variables) in each log record.  Your monitoring tools can then use those variables values as the inputs for your synthetic metrics.
 
 ## <a name="connections"></a> It's All About The Connections 
 
@@ -74,7 +74,7 @@ With this background information in mind, let's take a look at the metrics avail
   **`Waiting`** - The _current_ number of connections from clients that are in the **Idle / Waiting** state (waiting for a request.)
 
 -------
-## Selected Log File Variables
+## <a name="variables"></a> Selected Log File Variables
 
 It's beyond the scope of this guide to dive into _every_ Nginx log variable.  Instead, we're going to take a close look at a few variables that are of particular interest in the context of monitoring.
 
