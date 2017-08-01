@@ -12,7 +12,7 @@ While nginx's open source variant (nginx F/OSS, or "plain 'ol nginx") is the mos
 
 While there's a body of conventional wisdom and some basic material on the web, we found no definitive resource on the subject.
 
-At Scalyr, our approach to monitoring is based on years of frontline operational experience.  Good monitoring will help you more detect problems more quickly, spot incipient / slow-burn issues before they become full-scale outages, and ultimately save you (and your users) headaches.
+At Scalyr, our approach to monitoring is based on years of frontline operational experience.  Good monitoring will help you detect problems more quickly, spot incipient / slow-burn issues before they become full-scale outages, and ultimately save you (and your users) headaches.
 
 ## Background Material
 
