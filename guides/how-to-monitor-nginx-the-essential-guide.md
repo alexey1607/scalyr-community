@@ -92,7 +92,7 @@ You'll want to know each of these values, but the smallest one will be the limit
   * **Monitor** the number of open file handles for each process.
   * **Set an alert** when the number of open file handles reaches 70% of the smallest limit.  This means it's time to increase the limit before it reaches capacity and connections are dropped.
 
-A note on increasing the limit:  If you change the system / user / process limit, you'll normally have to restart the nginx master process to apply the change.  If for some reason you cannot allow a restart, nginx provides a workaround in the [`worker_rlimit_nofile`](http://nginx.org/en/docs/ngx_core_module.html#worker_rlimit_nofile) directive.  You can change the value of this directive to match the new system / user / process limit, do a configuration reload, and nginx will apply thew new limit without needing a restart.  
+A note on increasing the limit:  If you change the system / user / process limit, you'll normally have to restart the nginx master process to apply the change.  If for some reason you cannot allow a restart, nginx provides a workaround in the [`worker_rlimit_nofile`](http://nginx.org/en/docs/ngx_core_module.html#worker_rlimit_nofile) directive.  You can change the value of this directive to match the new system / user / process limit, do a configuration reload, and nginx will apply the new limit without needing a restart.  
 
 ### 7.  Process State
 
